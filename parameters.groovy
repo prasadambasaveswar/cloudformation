@@ -1,5 +1,5 @@
 env.StackName="${params.StackName}"
-env.KeyName="ssh_new.pem"
+env.KeyName="ssh_new"
 env.IAMRole="S3Access"
 env.VolumeSizeA=10
 env.VolumeSizeB=12
