@@ -1,0 +1,3 @@
+#!/bin/bash
+
+aws cloudformation create-stack --stack-name ${StackName} --region ${aws_default_region} --template-body file://autoscalinglaunchelb.json --parameters ParameterKey=SSHKeyName,ParameterValue=${KeyName} ParameterKey=InstanceType,ParameterValue=${InstanceType} ParameterKey=VPC,ParameterValue=${VPC} ParameterKey=VolumeSizeF,ParameterValue=${VolumeSizeF} ParameterKey=VolumeSizeG,ParameterValue=${VolumeSizeG} ParameterKey=VolumeType,ParameterValue=${VolumeType} ParameterKey=SubnetIdxyz,ParameterValue=${PrivateSubnets} ParameterKey=SecurityGroupId,ParameterValue=${SecurityGroupId} ParameterKey=NodesPerZone,ParameterValue=${NodesPerZone}
