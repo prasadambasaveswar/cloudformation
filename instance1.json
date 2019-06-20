@@ -24,12 +24,6 @@
         "AllowedValues" : [ "m1.medium","m1.large", "t2.micro", "t2.small", "t2.medium","m1.xlarge","m2.xlarge","m2.2xlarge","m2.4xlarge","m3.medium","m3.xlarge","m3.2xlarge","c1.medium","c1.xlarge", "t2.micro", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "m4.16xlarge", "m5.xlarge", "m5.2xlarge", "m5.4xlarge", "m5.12xlarge", "m5.24xlarge", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "r4.xlarge", "r4.2xlarge", "r4.4xlarge", "r4.8xlarge", "r4.16xlarge", "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge", "r5.12xlarge", "r5.24xlarge", "p3.2xlarge", "p3.8xlarge", "p3.16xlarge", "r5d.large", "r5d.xlarge", "r5d.2xlarge", "r5d.4xlarge", "r5d.12xlarge", "r5d.24xlarge", "p2.8xlarge"],
         "ConstraintDescription" : "Must be a valid EC2 instance type."
       },
-	"EnvNameParam": {
-     "Description": "Example 'dev' or 'test' switch, determines which settings are passed to userdata",
-     "Type": "String",
-     "Default": "dev",
-     "AllowedValues": [ "dev", "test", "uat" ]
-	 },
      "SSHKeyName": {
         "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
         "Type": "AWS::EC2::KeyPair::KeyName"
@@ -37,7 +31,7 @@
 	 "IAMRole": {
         "Description" : "The IAM Role",
         "Type": "String",
-		"Default": "S3Access"
+	"Default": "S3Access"
       }, 
 	"VPC": {
       "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
@@ -46,17 +40,17 @@
 	"VolumeSizeA": {
         "Description" : "The EBS Data volume size (GB) for all nodes",
         "Type": "Number",
-		"Default": "10"
+	"Default": "10"
       },	
 	"VolumeSizeB": {
         "Description" : "The EBS Data volume size (GB) for all nodes",
         "Type": "Number",
-		"Default": "10"
+	"Default": "10"
       },
 	"VolumeType": {
       "Description" : "The EBS Data volume Type",
       "Type": "String",
-	  "Default": "gp2"
+	"Default": "gp2"
     },
      "SubnetIdxyz" : {
       "Type" : "List<AWS::EC2::Subnet::Id>",
@@ -86,11 +80,11 @@
                     "Ref": "InstanceType"
                 },
                 "KeyName": {"Ref": "SSHKeyName"},
-				"IamInstanceProfile": {"Ref": "IAMRole"},
-				"Monitoring": "false",
-				"NetworkInterfaces" : [
-					{ "DeviceIndex" : "0",
-                "AssociatePublicIpAddress" : "true",
+		"IamInstanceProfile": {"Ref": "IAMRole"},
+		"Monitoring": "false",
+		"NetworkInterfaces" : [
+				{ "DeviceIndex" : "0",
+                		"AssociatePublicIpAddress" : "true",
 				"DeleteOnTermination" : "true",
 				 "SubnetId" : {"Fn::Join": [",", {"Ref": "SubnetIdxyz"} ] },
 				 "GroupSet" : [ {"Fn::Join": [",", {"Ref": "SecurityGroupId"} ] }]
@@ -101,23 +95,7 @@
                         "Value": "Two Volumes mount"
                     }
                 ],
-				"UserData": {
-					"Fn::Base64": {
-						"Fn::Join": ["", [
-							"#!/bin/bash -v\n",
-							"# Make the filesystem for the database\n",
-							"sudo mkdir -p /var/lib/d1\n",
-							"sudo mkfs.ext4 /dev/xvdf\n",
-							"sudo mount /dev/xvdf /var/lib/d1\n",
-							"sudo echo '/dev/xvdf /var/lib/d1 auto defaults 0 0' >> /etc/fstab\n",
-							"ip=$(curl http://169.254.169.254/latest/meta-data/local-ipv4) \n",
-                            "sudo echo $ip      xyz-test >> /etc/hosts\n",
-							"sudo echo 'xyz-test' > /etc/hostname\n",
-							"sudo apt-get install -y awscli \n"
-						]]
-					}
-				},	
-				"Volumes" : [
+		"Volumes" : [
                    { "VolumeId" : { "Ref" : "EBSVolume1" },
                             "Device" : "/dev/sdf"
                 },
@@ -130,14 +108,14 @@
 	        "EBSVolume1": {
             "Type": "AWS::EC2::Volume",
             "Properties": {
-                "AvailabilityZone": { "Fn::Select" : [ 1, { "Fn::GetAZs" : "" }] },
+                "AvailabilityZone": { "Fn::Select" : [ 0, { "Fn::GetAZs" : "" }] },
                 "Size": {"Ref": "VolumeSizeA"}
             }
         },
 			"EBSVolume2": {
             "Type": "AWS::EC2::Volume",
             "Properties": {
-                "AvailabilityZone": { "Fn::Select" : [ 1, { "Fn::GetAZs" : "" }] },
+                "AvailabilityZone": { "Fn::Select" : [ 0, { "Fn::GetAZs" : "" }] },
                 "Size": {"Ref": "VolumeSizeB"}
             }
         }
