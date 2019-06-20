@@ -16,7 +16,6 @@ pipeline {
             steps {
                 sh '''
                 sh awsclicft.sh
-                sleep(30)
                '''
 }
         }
