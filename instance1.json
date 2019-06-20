@@ -86,8 +86,8 @@
 				{ "DeviceIndex" : "0",
                 		"AssociatePublicIpAddress" : "true",
 				"DeleteOnTermination" : "true",
-				 "SubnetId" : {"Fn::Join": [",", {"Ref": "SubnetIdxyz"} ] },
-				 "GroupSet" : [ {"Fn::Join": [",", {"Ref": "SecurityGroupId"} ] }]
+				 "SubnetId" : {"Ref": "SubnetIdxyz"},
+				 "GroupSet" : [ {"Ref": "SecurityGroupId"} ]
 				}],
                 "Tags": [
                     {
