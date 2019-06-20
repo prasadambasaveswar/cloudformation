@@ -58,7 +58,11 @@
       "Type": "String",
 	  "Default": "gp2"
     },
-	"SubnetIdxyz" : {
+     "availabilityZone" : {
+      "Type" : "String",
+      "Description" : "Availability Zones"
+    },
+     "SubnetIdxyz" : {
       "Type" : "List<AWS::EC2::Subnet::Id>",
       "Description" : "SubnetId of an existing subnet in your Virtual Private Cloud (VPC)"
     },
