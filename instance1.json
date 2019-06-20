@@ -41,7 +41,7 @@
       }, 
 	"VPC": {
       "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
-      "Type": "String"
+      "Type": "AWS::EC2::VPC::Id"
     },
 	"VolumeSizeA": {
         "Description" : "The EBS Data volume size (GB) for all nodes",
