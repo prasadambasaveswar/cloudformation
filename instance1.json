@@ -87,7 +87,7 @@
                 		"AssociatePublicIpAddress" : "true",
 				"DeleteOnTermination" : "true",
 				 "SubnetId" : {"Ref": "SubnetIdxyz"},
-				 "GroupSet" : [ {"Ref": "SecurityGroupId"} ]
+				 "GroupSet" : [ {"Fn::Join": [",", {"Ref": "SecurityGroupId"} ] }]
 				}],
                 "Tags": [
                     {
