@@ -48,11 +48,11 @@
 	"Default": "gp2"
     },
      "SubnetIdxyz" : {
-      "Type" : "String",
+      "Type" : "Type" : "List<AWS::EC2::Subnet::Id>",,
       "Description" : "SubnetId of an existing subnet in your Virtual Private Cloud (VPC)"
     },
     "SecurityGroupId" : {
-      "Type" : "String",
+      "Type" : "List<AWS::EC2::SecurityGroup::Id>",
       "Description" : "The SecurityGroupId of an existing EC2 SecurityGroup in your Virtual Private Cloud (VPC)"
     }
     },
