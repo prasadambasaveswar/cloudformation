@@ -7,19 +7,16 @@ pipeline {
             }
         }
         stage('validate') {
-        steps {
-        sh 'aws cloudformation validate-template --template-body file://marklogic.json'
-        sh 'aws cloudformation describe-stack-resources  --stackname stack'
-        resourcestatus = "\"CREATE_IN_PROGRRESS"\"
-        while true
-        (
-          if(resourcestatus.equals("\"CREATE_IN_PROGRESS\"") || resourcestatus.equals("\"CREATE_COMPLETE")
-        }
+                        steps {
+                        load "parameters.groovy"
+                        sh 'aws cloudformation validate-template --template-body file://instance1.json'
+                        }
         }
         stage('Build') {
             steps {
-                sh 'aws cloudformation create-stack --stack-name myteststack --template-body file://'marklogic.json --parameters ParameterKey=KeyPairName,ParameterValue=${params.KeyName} ParameterKey=AZ,ParameterValue=us-east-1a\\,us-east-1b\\us-east-1c, ParameterKey=VPC ParameterValue=${params.vpc}, ParameterKey=PrivateSubnets, ParameterValue=${params.subnetid1}\\${params.subnetid2}
-'
+                sh '''
+                sh awsclicft.sh
+               '''
 }
         }
          }
