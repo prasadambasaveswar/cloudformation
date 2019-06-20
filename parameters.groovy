@@ -11,5 +11,5 @@ env.NodesPerZone=1
 env.AZ="us-east-2a"
 env.VPC="vpc-a8a641c3"
 env.PrivateSubnets="subnet-1d646b75"
-env.SecurityGroup="sg-0b7cb53f908db330c"
+env.SecurityGroupId="sg-0b7cb53f908db330c"
 env.aws_default_region="us-east-2"
