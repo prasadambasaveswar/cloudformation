@@ -9,7 +9,7 @@ pipeline {
         stage('validate') {
                         steps {
                         load "parameters.groovy"
-                        sh 'aws cloudformation validate-template --template-body file://instance1.json'
+                        sh 'aws cloudformation validate-template --template-body file://instance1.json --region ${env.aws_default_region}
                         }
         }
         stage('Build') {
