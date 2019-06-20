@@ -22,7 +22,7 @@ pipeline {
         stage('status') {
           steps {
           sh '''
-        resourcestatus=$(aws cloudformation describe-stack-resources --stack-name testxyz --query 'StackResources[*].{ResourceStatus:ResourceStatus}' --output text)
+        resourcestatus=$(aws cloudformation describe-stack-resources --stack-name ${StackName} --query 'StackResources[*].{ResourceStatus:ResourceStatus}' --output text)
         while IFS= read -r line
         do
         {
