@@ -16,8 +16,27 @@ pipeline {
             steps {
                 sh '''
                 sh awsclicft.sh
+                sleep(30)
                '''
 }
         }
+        stage('status') {
+          steps {
+          sh '''
+        resourcestatus=$(aws cloudformation describe-stack-resources --stack-name testxyz --query 'StackResources[*].{ResourceStatus:ResourceStatus}' --output text)
+        while IFS= read -r line
+        do
+        {
+          if [[ $resourcestatus == CREATE_IN_PROGRESS ]];
+		  echo " still $resourcestatus ... sleepin 30sec"
+          sleep 30s
+          elsif [[ $resourcestatus == CREATE_COMPLETE ]];
+          echo "creation complete"
+          fi
+		  }
+          done <<< "$resourcestatus"
+        '''
+        }
          }
+}
 }
