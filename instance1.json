@@ -28,11 +28,6 @@
         "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
         "Type": "AWS::EC2::KeyPair::KeyName"
       },
-	 "IAMRole": {
-        "Description" : "The IAM Role",
-        "Type": "String",
-	"Default": "S3Access"
-      }, 
 	"VPC": {
       "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
       "Type": "AWS::EC2::VPC::Id"
@@ -80,14 +75,13 @@
                     "Ref": "InstanceType"
                 },
                 "KeyName": {"Ref": "SSHKeyName"},
-		"IamInstanceProfile": {"Ref": "IAMRole"},
 		"Monitoring": "false",
 		"NetworkInterfaces" : [
 				{ "DeviceIndex" : "0",
                 		"AssociatePublicIpAddress" : "true",
 				"DeleteOnTermination" : "true",
-				 "SubnetId" : {"Ref": "SubnetIdxyz"},
-				 "GroupSet" : [ {"Ref": "SecurityGroupId"} ]
+				 "SubnetId" : {"Fn::Join": [",", {"Ref": "SubnetIdxyz"} ] },
+				 "GroupSet" : [ {"Fn::Join": [",", {"Ref": "SecurityGroupId"} ] }]
 				}],
                 "Tags": [
                     {
