@@ -53,11 +53,11 @@
 	"Default": "gp2"
     },
      "SubnetIdxyz" : {
-      "Type" : "List<AWS::EC2::Subnet::Id>",
+      "Type" : "String",
       "Description" : "SubnetId of an existing subnet in your Virtual Private Cloud (VPC)"
     },
     "SecurityGroupId" : {
-      "Type" : "List<AWS::EC2::SecurityGroup::Id>",
+      "Type" : "String",
       "Description" : "The SecurityGroupId of an existing EC2 SecurityGroup in your Virtual Private Cloud (VPC)"
     }
     },
@@ -87,7 +87,7 @@
                 		"AssociatePublicIpAddress" : "true",
 				"DeleteOnTermination" : "true",
 				 "SubnetId" : {"Ref": "SubnetIdxyz"},
-				 "GroupSet" : [ {"Fn::Join": [",", {"Ref": "SecurityGroupId"} ] }]
+				 "GroupSet" : [ {"Ref": "SecurityGroupId"} ]
 				}],
                 "Tags": [
                     {
